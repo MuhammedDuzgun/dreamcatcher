@@ -30,6 +30,8 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
+                    registry.requestMatchers("/api/dream/add-dream").authenticated();
+                    registry.requestMatchers("/api/dream/delete-dream/").authenticated();
                     registry.anyRequest().permitAll();
                 }).oauth2Login(oauth2login -> {
                     oauth2login.successHandler(new AuthenticationSuccessHandler() {
