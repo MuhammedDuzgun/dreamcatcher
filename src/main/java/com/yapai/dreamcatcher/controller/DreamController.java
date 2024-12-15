@@ -1,7 +1,7 @@
 package com.yapai.dreamcatcher.controller;
 
 import com.yapai.dreamcatcher.model.DreamInterpretation;
-import com.yapai.dreamcatcher.service.IDreamService;
+import com.yapai.dreamcatcher.service.ai.IDreamService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
