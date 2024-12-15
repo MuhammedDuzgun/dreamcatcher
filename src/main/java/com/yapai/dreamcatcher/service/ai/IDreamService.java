@@ -1,4 +1,4 @@
-package com.yapai.dreamcatcher.service;
+package com.yapai.dreamcatcher.service.ai;
 
 import com.yapai.dreamcatcher.model.DreamInterpretation;
 

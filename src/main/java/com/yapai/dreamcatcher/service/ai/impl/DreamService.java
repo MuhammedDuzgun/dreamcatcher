@@ -1,7 +1,7 @@
-package com.yapai.dreamcatcher.service.impl;
+package com.yapai.dreamcatcher.service.ai.impl;
 
 import com.yapai.dreamcatcher.model.DreamInterpretation;
-import com.yapai.dreamcatcher.service.IDreamService;
+import com.yapai.dreamcatcher.service.ai.IDreamService;
 import com.yapai.dreamcatcher.utils.AppConstants;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
