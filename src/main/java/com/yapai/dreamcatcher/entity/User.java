@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -17,6 +18,7 @@ public class User {
 
     private String lastName;
 
+    @Column(unique = true)
     private String email;
 
     private String picture;
@@ -24,16 +26,24 @@ public class User {
     @CreationTimestamp
     private LocalDateTime dateCreated;
 
+    @OneToMany(mappedBy = "user")
+    private List<Dream> dreams;
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
+
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, String picture, LocalDateTime dateCreated) {
+    public User(Long id, String firstName, String lastName, String email, String picture, LocalDateTime dateCreated, List<Dream> dreams, List<Comment> comments) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.picture = picture;
         this.dateCreated = dateCreated;
+        this.dreams = dreams;
+        this.comments = comments;
     }
 
     public Long getId() {
@@ -82,5 +92,21 @@ public class User {
 
     public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public List<Dream> getDreams() {
+        return dreams;
+    }
+
+    public void setDreams(List<Dream> dreams) {
+        this.dreams = dreams;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
