@@ -15,6 +15,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,4 +67,15 @@ public class CommentService implements ICommentService {
             commentRepository.delete(commentToDelete.get());
         }
     }
+
+    @Override
+    public List<CommentDto> getAllComments() {
+        List<Comment> comments = commentRepository.findAll();
+        List<CommentDto> commentDtos = new ArrayList<>();
+        if (!comments.isEmpty()) {
+            comments.stream().map(CommentMapper::mapToCommentDto).forEach(commentDtos::add);
+        }
+        return commentDtos;
+    }
+
 }

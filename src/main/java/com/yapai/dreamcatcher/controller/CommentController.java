@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
@@ -29,6 +31,12 @@ public class CommentController {
                                                 @PathVariable("commentId") Long commentId) {
         commentService.deleteComment(authentication, commentId);
         return ResponseEntity.ok("Comment deleted");
+    }
+
+    @GetMapping("/all-comments")
+    public ResponseEntity<List<CommentDto>> getAllComments() {
+        List<CommentDto> commentDtos = commentService.getAllComments();
+        return ResponseEntity.ok(commentDtos);
     }
 
 }
