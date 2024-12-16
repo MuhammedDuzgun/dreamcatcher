@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/dream")
 public class DreamController {
@@ -40,4 +42,8 @@ public class DreamController {
         return ResponseEntity.ok("Deleted Dream");
     }
 
+    @GetMapping("/all-dreams")
+    public ResponseEntity<List<DreamDto>> getAllDreams() {
+        return ResponseEntity.ok(dreamService.getAllDreams());
+    }
 }

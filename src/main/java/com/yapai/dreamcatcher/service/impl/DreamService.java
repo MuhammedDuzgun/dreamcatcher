@@ -13,6 +13,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,11 +35,11 @@ public class DreamService implements IDreamService {
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = token.getPrincipal();
         String email = oAuth2User.getAttribute("email");
-        User user = userRepository.findByEmail(email);
+        Optional<User> user = userRepository.findByEmail(email);
 
         dream.setDream(createDreamRequest.getDream());
         dream.setDreamInterpretation(createDreamRequest.getDreamInterpretation());
-        dream.setUser(user);
+        dream.setUser(user.get());
         Dream savedDream = dreamRepository.save(dream);
         return DreamMapper.mapToDreamDto(savedDream);
     }
@@ -49,10 +51,20 @@ public class DreamService implements IDreamService {
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = token.getPrincipal();
         String email = oAuth2User.getAttribute("email");
-        User user = userRepository.findByEmail(email);
+        Optional<User> user = userRepository.findByEmail(email);
 
-        if (dream.get().getUser().getId().equals(user.getId())) {
+        if (dream.get().getUser().getId().equals(user.get().getId())) {
             dreamRepository.deleteById(dreamId);
         }
+    }
+
+    @Override
+    public List<DreamDto> getAllDreams() {
+        List<Dream> dreams = dreamRepository.findAll();
+        List<DreamDto> dreamDtos = new ArrayList<>();
+        if (!dreams.isEmpty()) {
+            dreams.stream().map(dream -> dreamDtos.add(DreamMapper.mapToDreamDto(dream)));
+        }
+        return dreamDtos;
     }
 }
