@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DreamService implements IDreamService {
@@ -35,25 +34,28 @@ public class DreamService implements IDreamService {
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = token.getPrincipal();
         String email = oAuth2User.getAttribute("email");
-        Optional<User> user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email)
+                        .orElseThrow(()-> new RuntimeException("User not found"));
 
         dream.setDream(createDreamRequest.getDream());
         dream.setDreamInterpretation(createDreamRequest.getDreamInterpretation());
-        dream.setUser(user.get());
+        dream.setUser(user);
         Dream savedDream = dreamRepository.save(dream);
         return DreamMapper.mapToDreamDto(savedDream);
     }
 
     @Override
     public void deleteDream(Authentication authentication, Long dreamId) {
-        Optional<Dream> dream = dreamRepository.findById(dreamId);
+        Dream dream = dreamRepository.findById(dreamId)
+                .orElseThrow(()-> new RuntimeException("Dream not found"));
 
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = token.getPrincipal();
         String email = oAuth2User.getAttribute("email");
-        Optional<User> user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()-> new RuntimeException("User not found"));
 
-        if (dream.get().getUser().getId().equals(user.get().getId())) {
+        if (dream.getUser().getId().equals(user.getId())) {
             dreamRepository.deleteById(dreamId);
         }
     }

@@ -26,15 +26,11 @@ public class UserService implements IUserService {
         String lastName = oAuth2User.getAttribute("family_name");
         String picture = oAuth2User.getAttribute("picture");
 
-        //Is User Exists
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            user = new User();
-            user.setEmail(email);
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setPicture(picture);
-            userRepository.save(user);
-        }
+        User user = new User();
+        user.setEmail(email);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPicture(picture);
+        userRepository.save(user);
     }
 }

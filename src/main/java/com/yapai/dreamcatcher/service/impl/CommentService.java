@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CommentService implements ICommentService {
@@ -38,16 +37,18 @@ public class CommentService implements ICommentService {
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oauth2User = token.getPrincipal();
         String email = oauth2User.getAttribute("email");
-        Optional<User> user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()-> new RuntimeException("User not found"));
 
         //Dream
-        Optional<Dream> dream = dreamRepository.findById(createCommentRequest.getDreamId());
+        Dream dream = dreamRepository.findById(createCommentRequest.getDreamId())
+                .orElseThrow(()-> new RuntimeException("Dream not found"));
 
         //Comment
         Comment comment = new Comment();
         comment.setComment(createCommentRequest.getComment());
-        comment.setDream(dream.get());
-        comment.setUser(user.get());
+        comment.setDream(dream);
+        comment.setUser(user);
 
         Comment savedComment = commentRepository.save(comment);
 
@@ -60,11 +61,14 @@ public class CommentService implements ICommentService {
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oauth2User = token.getPrincipal();
         String email = oauth2User.getAttribute("email");
-        Optional<User> user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()-> new RuntimeException("User not found"));
 
-        Optional<Comment> commentToDelete = commentRepository.findById(commentId);
-        if (commentToDelete.get().getUser().getId().equals(user.get().getId())) {
-            commentRepository.delete(commentToDelete.get());
+        Comment commentToDelete = commentRepository.findById(commentId)
+                .orElseThrow(()-> new RuntimeException("Comment not found"));
+
+        if (commentToDelete.getUser().getId().equals(user.getId())) {
+            commentRepository.delete(commentToDelete);
         }
     }
 
