@@ -33,10 +33,4 @@ public class CommentController {
         return ResponseEntity.ok("Comment deleted");
     }
 
-    @GetMapping("/all-comments")
-    public ResponseEntity<List<CommentDto>> getAllComments() {
-        List<CommentDto> commentDtos = commentService.getAllComments();
-        return ResponseEntity.ok(commentDtos);
-    }
-
 }
