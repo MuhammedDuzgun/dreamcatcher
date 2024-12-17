@@ -8,17 +8,29 @@
 </head>
 <body>
 
+<!-- Arka Plan -->
 <div class="background"></div>
 
+<!-- Navbar -->
+<div class="navbar">
+    <button id="homeButton">Ana Sayfa</button>
+    <button id="dreamWorldButton">Rüyalar Alemi</button>
+    <button id="profileButton">Profilim</button>
+</div>
+
+<!-- İçerik Bölgesi -->
 <div class="content">
-    <h1>Dream Catcher</h1>
+    <!-- Dinamik içerik buraya yüklenecek -->
+</div>
 
-    <textarea id="dreamInput" placeholder="Rüyanızı buraya yazın (Maks. 300 karakter)..." maxlength="300"></textarea><br>
-    <button id="interpretButton">Rüyamı Yorumla</button>
-    <button id="saveButton" disabled>Rüyayı Kaydet</button>
-
-    <div class="loading" id="loading">Yorumlanıyor...</div>
-    <div id="result"></div>
+<!-- Yorum Girişi için Modal -->
+<div id="commentModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Yorum Yap</h2>
+        <textarea id="commentInput" placeholder="Yorumunuzu buraya yazın..." maxlength="300"></textarea><br>
+        <button id="submitCommentButton">Yorumu Gönder</button>
+    </div>
 </div>
 
 <script src="scripts.js"></script>
