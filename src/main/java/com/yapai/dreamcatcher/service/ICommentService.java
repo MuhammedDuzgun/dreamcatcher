@@ -9,5 +9,5 @@ import java.util.List;
 public interface ICommentService {
     CommentDto addComment(Authentication authentication, CreateCommentRequest createCommentRequest);
     void deleteComment(Authentication authentication, Long commentId);
-    List<CommentDto> getAllComments();
+    List<CommentDto> getAllCommentsByDreamId(Long dreamId);
 }
