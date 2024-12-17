@@ -34,6 +34,7 @@ public class SecurityConfig {
                     registry.requestMatchers("/api/dream/delete-dream/").authenticated();
                     registry.anyRequest().permitAll();
                 }).oauth2Login(oauth2login -> {
+                    oauth2login.loginPage("/login");
                     oauth2login.successHandler(new AuthenticationSuccessHandler() {
                         @Override
                         public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -43,7 +44,6 @@ public class SecurityConfig {
                         }
                     });
                 })
-                .formLogin(Customizer.withDefaults())
                 .build();
     }
 

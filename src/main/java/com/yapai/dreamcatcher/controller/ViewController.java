@@ -11,4 +11,9 @@ public class ViewController {
         return "home.html";
     }
 
+    @GetMapping("/login")
+    public String loginController() {
+        return "login.html";
+    }
+
 }

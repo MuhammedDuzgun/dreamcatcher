@@ -17,6 +17,22 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = '/login'; // /login sayfasına yönlendir
     });
 
+    function loadLoginPage() {
+        contentContainer.innerHTML = `
+        <div class="login-container">
+            <h1>Dream Catcher</h1>
+            <p>Devam etmek için Google hesabınızla giriş yapın.</p>
+            <a href="/oauth2/authorization/google" class="google-login-button">
+                Google ile Giriş Yap
+            </a>
+        </div>
+    `;
+    }
+
+    // Giriş Yap butonuna event listener ekleme
+    loginButton.addEventListener('click', loadLoginPage);
+
+
     // Sayfa içeriğini yükleyen yardımcı fonksiyonlar
     function loadHomePage() {
         contentContainer.innerHTML = `
