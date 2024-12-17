@@ -73,8 +73,10 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public List<CommentDto> getAllComments() {
-        List<Comment> comments = commentRepository.findAll();
+    public List<CommentDto> getAllCommentsByDreamId(Long dreamId) {
+        Dream dream = dreamRepository.findById(dreamId)
+                .orElseThrow(()-> new RuntimeException("Dream not found"));
+        List<Comment> comments = commentRepository.findByDream(dream);
         List<CommentDto> commentDtos = new ArrayList<>();
         if (!comments.isEmpty()) {
             comments.stream().map(CommentMapper::mapToCommentDto).forEach(commentDtos::add);
