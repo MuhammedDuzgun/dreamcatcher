@@ -1,5 +1,6 @@
 package com.yapai.dreamcatcher.service.impl;
 
+import com.yapai.dreamcatcher.dto.UserDto;
 import com.yapai.dreamcatcher.entity.User;
 import com.yapai.dreamcatcher.repository.IUserRepository;
 import com.yapai.dreamcatcher.service.IUserService;
@@ -26,11 +27,33 @@ public class UserService implements IUserService {
         String lastName = oAuth2User.getAttribute("family_name");
         String picture = oAuth2User.getAttribute("picture");
 
-        User user = new User();
-        user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setPicture(picture);
-        userRepository.save(user);
+        userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    User user = new User();
+                    user.setEmail(email);
+                    user.setFirstName(firstName);
+                    user.setLastName(lastName);
+                    user.setPicture(picture);
+                    return userRepository.save(user);
+                });
     }
+
+    @Override
+    public UserDto getUserProfile(Authentication authentication) {
+        OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
+        OAuth2User oAuth2User = token.getPrincipal();
+        String email = oAuth2User.getAttribute("email");
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()-> new RuntimeException("user not found"));
+
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setEmail(email);
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setPicture(user.getPicture());
+        return userDto;
+    }
+
 }
