@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitCommentButton = document.getElementById('submitCommentButton');
     let currentDreamId = null;
 
+    // Yeni Giriş Yap butonuna yönlendirme ekle
+    loginButton.addEventListener('click', function () {
+        window.location.href = '/login'; // /login sayfasına yönlendir
+    });
+
     // Sayfa içeriğini yükleyen yardımcı fonksiyonlar
     function loadHomePage() {
         contentContainer.innerHTML = `
@@ -91,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const saveButton = document.getElementById('saveButton');
         const resultContainer = document.getElementById('result');
         const loadingIndicator = document.getElementById('loading');
+        const loginButton = document.getElementById('loginButton');
 
         interpretButton.addEventListener('click', function () {
             const dream = dreamInput.value.trim();
