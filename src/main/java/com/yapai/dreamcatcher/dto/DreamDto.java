@@ -60,4 +60,15 @@ public class DreamDto {
     public void setComments(List<CommentDto> comments) {
         this.comments = comments;
     }
+
+    @Override
+    public String toString() {
+        return "DreamDto{" +
+                "id=" + id +
+                ", dream='" + dream + '\'' +
+                ", dreamInterpretation='" + dreamInterpretation + '\'' +
+                ", userId=" + userId +
+                ", comments=" + comments +
+                '}';
+    }
 }

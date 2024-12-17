@@ -22,7 +22,7 @@ public class Dream {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "dream")
+    @OneToMany(mappedBy = "dream", orphanRemoval = true)
     private List<Comment> comments;
 
     public Dream() {
@@ -66,5 +66,16 @@ public class Dream {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "Dream{" +
+                "id=" + id +
+                ", dream='" + dream + '\'' +
+                ", dreamInterpretation='" + dreamInterpretation + '\'' +
+                ", user=" + user +
+                ", comments=" + comments +
+                '}';
     }
 }

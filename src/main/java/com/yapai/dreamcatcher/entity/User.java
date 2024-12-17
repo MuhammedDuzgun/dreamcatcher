@@ -26,10 +26,10 @@ public class User {
     @CreationTimestamp
     private LocalDateTime dateCreated;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Dream> dreams;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Comment> comments;
 
     public User() {
