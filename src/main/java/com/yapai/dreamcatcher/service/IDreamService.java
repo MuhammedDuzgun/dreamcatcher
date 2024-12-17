@@ -10,4 +10,5 @@ public interface IDreamService {
     DreamDto addDream(Authentication authentication, CreateDreamRequest createDreamRequest);
     void deleteDream(Authentication authentication, Long dreamId);
     List<DreamDto> getAllDreams();
+    List<DreamDto> getAllDreamsOfUser(Authentication authentication);
 }

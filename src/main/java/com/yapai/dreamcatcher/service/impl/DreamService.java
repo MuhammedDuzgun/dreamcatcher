@@ -65,7 +65,23 @@ public class DreamService implements IDreamService {
         List<Dream> dreams = dreamRepository.findAll();
         List<DreamDto> dreamDtos = new ArrayList<>();
         if (!dreams.isEmpty()) {
-            dreams.stream().map(dream -> dreamDtos.add(DreamMapper.mapToDreamDto(dream)));
+            dreams.forEach((dream)-> dreamDtos.add(DreamMapper.mapToDreamDto(dream)));
+        }
+        return dreamDtos;
+    }
+
+    @Override
+    public List<DreamDto> getAllDreamsOfUser(Authentication authentication) {
+        OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
+        OAuth2User oAuth2User = token.getPrincipal();
+        String email = oAuth2User.getAttribute("email");
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+
+        List<Dream> dreams = dreamRepository.findByUser(user);
+        List<DreamDto> dreamDtos = new ArrayList<>();
+        if (!dreams.isEmpty()) {
+            dreams.forEach((dream)-> dreamDtos.add(DreamMapper.mapToDreamDto(dream)));
         }
         return dreamDtos;
     }
