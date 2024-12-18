@@ -4,7 +4,9 @@ import com.yapai.dreamcatcher.dto.UserDto;
 import com.yapai.dreamcatcher.entity.User;
 import com.yapai.dreamcatcher.repository.IUserRepository;
 import com.yapai.dreamcatcher.service.IUserService;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,8 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto getUserProfile(Authentication authentication) {
+        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = token.getPrincipal();
         String email = oAuth2User.getAttribute("email");

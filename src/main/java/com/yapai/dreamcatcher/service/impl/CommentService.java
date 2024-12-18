@@ -10,6 +10,7 @@ import com.yapai.dreamcatcher.repository.ICommentRepository;
 import com.yapai.dreamcatcher.repository.IDreamRepository;
 import com.yapai.dreamcatcher.repository.IUserRepository;
 import com.yapai.dreamcatcher.service.ICommentService;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -33,6 +34,8 @@ public class CommentService implements ICommentService {
 
     @Override
     public CommentDto addComment(Authentication authentication, CreateCommentRequest createCommentRequest) {
+        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+
         //User
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oauth2User = token.getPrincipal();
@@ -57,6 +60,8 @@ public class CommentService implements ICommentService {
 
     @Override
     public void deleteComment(Authentication authentication, Long commentId) {
+        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+
         //User
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oauth2User = token.getPrincipal();

@@ -8,6 +8,7 @@ import com.yapai.dreamcatcher.mapper.DreamMapper;
 import com.yapai.dreamcatcher.repository.IDreamRepository;
 import com.yapai.dreamcatcher.repository.IUserRepository;
 import com.yapai.dreamcatcher.service.IDreamService;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -29,6 +30,8 @@ public class DreamService implements IDreamService {
 
     @Override
     public DreamDto addDream(Authentication authentication, CreateDreamRequest createDreamRequest) {
+        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+
         Dream dream = new Dream();
 
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
@@ -46,6 +49,8 @@ public class DreamService implements IDreamService {
 
     @Override
     public void deleteDream(Authentication authentication, Long dreamId) {
+        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+
         Dream dream = dreamRepository.findById(dreamId)
                 .orElseThrow(()-> new RuntimeException("Dream not found"));
 
@@ -72,6 +77,8 @@ public class DreamService implements IDreamService {
 
     @Override
     public List<DreamDto> getAllDreamsOfUser(Authentication authentication) {
+        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = token.getPrincipal();
         String email = oAuth2User.getAttribute("email");
