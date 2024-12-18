@@ -17,6 +17,16 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = '/login'; // /login sayfasına yönlendir
     });
 
+    //401'de login'e yonlendir
+    function handleUnauthorized(response) {
+        if (response.status === 401) {
+            window.location.href = '/login'; // 401 durumunda login sayfasına yönlendir
+            return Promise.reject('Yetkisiz erişim!'); // Zinciri sonlandır
+        }
+        return response; // Normal akışa devam
+    }
+
+
     function loadLoginPage() {
         contentContainer.innerHTML = `
         <div class="login-container">
@@ -70,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function loadProfilePage() {
         fetch('http://localhost:8080/api/user/profile')
+            .then(response => handleUnauthorized(response))
             .then(response => response.json())
             .then(user => {
                 contentContainer.innerHTML = `
@@ -83,11 +94,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
                 loadUserDreams();
             })
-            .catch(() => alert('Profil yüklenirken hata oluştu!'));
+            //.catch(() => alert('Profil yüklenirken hata oluştu!'));
     }
 
     function loadUserDreams() {
         fetch('http://localhost:8080/api/user/dreams')
+            .then(response => handleUnauthorized(response))
             .then(response => response.json())
             .then(dreams => {
                 const dreamsContainer = document.getElementById('userDreams');
@@ -149,9 +161,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     dreamInterpretation: dreamInterpretation
                 })
             })
-                .then(() => alert('Rüya başarıyla kaydedildi!'))
-                .catch(() => alert('Rüya kaydedilirken bir hata oluştu.'));
+                .then(response => handleUnauthorized(response))
+                .then(response => {return response.json();})
+                .then(() => {
+                    alert('Rüya başarıyla kaydedildi!');
+                })
+                .catch(error => {
+                    console.error(error);
+                    //alert('Rüya kaydedilirken bir hata oluştu.');
+                });
         });
+
+
     }
 
     window.openCommentModal = function (dreamId) {
@@ -164,6 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
         commentInput.value = '';
     });
 
+    //add-comment
     submitCommentButton.addEventListener('click', function () {
         const commentText = commentInput.value.trim();
 
@@ -176,29 +198,33 @@ document.addEventListener('DOMContentLoaded', function () {
                     dreamId: currentDreamId
                 })
             })
+                .then(response => handleUnauthorized(response))
                 .then(() => {
                     alert('Yorum başarıyla eklendi!');
                     commentModal.style.display = 'none';
                     loadComments(currentDreamId);
                 })
-                .catch(() => alert('Yorum eklenirken hata oluştu!'));
+                //.catch(() => );
         } else {
             alert('Lütfen bir yorum yazın.');
         }
     });
 
+    //get-comments of dream
     window.loadComments = function (dreamId) {
         fetch(`http://localhost:8080/api/dream/${dreamId}/all-comments`)
             .then(response => response.json())
             .then(comments => {
                 const container = document.querySelector(`.card[data-id="${dreamId}"] .comments-container`);
-                container.innerHTML = comments.map(comment => `<div class="comment">${comment.comment}</div>`).join('');
+                container.innerHTML = comments.map(comment => `<div class="comment"><b>Anonim :</b> ${comment.comment}</div><hr/>`).join('');
                 container.style.display = 'block';
             });
     };
 
+    //delete-dream
     window.deleteDream = function (dreamId) {
         fetch(`http://localhost:8080/api/dream/delete-dream/${dreamId}`, { method: 'DELETE' })
+            .then(response => handleUnauthorized(response))
             .then(() => {
                 alert('Rüya silindi.');
                 loadProfilePage();
