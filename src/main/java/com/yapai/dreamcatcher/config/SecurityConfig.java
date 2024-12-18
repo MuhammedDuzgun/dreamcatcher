@@ -6,12 +6,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 import java.io.IOException;
 
@@ -32,6 +34,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/api/dream/add-dream").authenticated();
                     registry.requestMatchers("/api/dream/delete-dream/").authenticated();
+                    registry.requestMatchers("/api/comment/add-comment").authenticated();
+                    registry.requestMatchers("/api/comment/delete-comment/").authenticated();
+                    registry.requestMatchers("/api/user/").authenticated();
+                    registry.requestMatchers("/api/user/dreams/").authenticated();
                     registry.anyRequest().permitAll();
                 }).oauth2Login(oauth2login -> {
                     oauth2login.loginPage("/login");
@@ -44,6 +50,9 @@ public class SecurityConfig {
                         }
                     });
                 })
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                )
                 .build();
     }
 
