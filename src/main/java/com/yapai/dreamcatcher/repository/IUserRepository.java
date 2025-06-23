@@ -2,7 +2,6 @@ package com.yapai.dreamcatcher.repository;
 
 import com.yapai.dreamcatcher.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.Optional;
 
 

@@ -13,7 +13,11 @@ public class DreamDto {
     public DreamDto() {
     }
 
-    public DreamDto(Long id, String dream, String dreamInterpretation, Long userId, List<CommentDto> comments) {
+    public DreamDto(Long id,
+                    String dream,
+                    String dreamInterpretation,
+                    Long userId,
+                    List<CommentDto> comments) {
         this.id = id;
         this.dream = dream;
         this.dreamInterpretation = dreamInterpretation;

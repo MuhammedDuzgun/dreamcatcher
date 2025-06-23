@@ -26,7 +26,9 @@ public class CommentService implements ICommentService {
     private final IDreamRepository dreamRepository;
     private final ICommentRepository commentRepository;
 
-    public CommentService(IUserRepository userRepository, IDreamRepository dreamRepository, ICommentRepository commentRepository) {
+    public CommentService(IUserRepository userRepository,
+                          IDreamRepository dreamRepository,
+                          ICommentRepository commentRepository) {
         this.userRepository = userRepository;
         this.dreamRepository = dreamRepository;
         this.commentRepository = commentRepository;
@@ -34,7 +36,9 @@ public class CommentService implements ICommentService {
 
     @Override
     public CommentDto addComment(Authentication authentication, CreateCommentRequest createCommentRequest) {
-        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        if (authentication == null) {
+            throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        }
 
         //User
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
@@ -60,7 +64,9 @@ public class CommentService implements ICommentService {
 
     @Override
     public void deleteComment(Authentication authentication, Long commentId) {
-        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        if (authentication == null) {
+            throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        }
 
         //User
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;

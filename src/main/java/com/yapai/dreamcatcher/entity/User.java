@@ -35,7 +35,14 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, String picture, LocalDateTime dateCreated, List<Dream> dreams, List<Comment> comments) {
+    public User(Long id,
+                String firstName,
+                String lastName,
+                String email,
+                String picture,
+                LocalDateTime dateCreated,
+                List<Dream> dreams,
+                List<Comment> comments) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

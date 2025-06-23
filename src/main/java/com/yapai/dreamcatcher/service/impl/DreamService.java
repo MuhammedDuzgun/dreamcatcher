@@ -30,7 +30,9 @@ public class DreamService implements IDreamService {
 
     @Override
     public DreamDto addDream(Authentication authentication, CreateDreamRequest createDreamRequest) {
-        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        if (authentication == null) {
+            throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        }
 
         Dream dream = new Dream();
 
@@ -49,7 +51,9 @@ public class DreamService implements IDreamService {
 
     @Override
     public void deleteDream(Authentication authentication, Long dreamId) {
-        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        if (authentication == null) {
+            throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        }
 
         Dream dream = dreamRepository.findById(dreamId)
                 .orElseThrow(()-> new RuntimeException("Dream not found"));
@@ -77,7 +81,9 @@ public class DreamService implements IDreamService {
 
     @Override
     public List<DreamDto> getAllDreamsOfUser(Authentication authentication) {
-        if (authentication == null) throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        if (authentication == null) {
+            throw new AuthenticationCredentialsNotFoundException("User not authenticated");
+        }
 
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = token.getPrincipal();

@@ -21,7 +21,9 @@ public class DreamController {
     private final IDreamService dreamService;
     private final ICommentService commentService;
 
-    public DreamController(IDreamServiceAI dreamService, IDreamService dreamService1, ICommentService commentService) {
+    public DreamController(IDreamServiceAI dreamService,
+                           IDreamService dreamService1,
+                           ICommentService commentService) {
         this.dreamServiceAI = dreamService;
         this.dreamService = dreamService1;
         this.commentService = commentService;
