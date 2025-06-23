@@ -9,16 +9,20 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.yapai</groupId>
-	<artifactId>dreamcatcher</artifactId>
+	<artifactId>muneccimboku</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>dreamcatcher</name>
-	<description>DreamCatcher-SpringBootApp</description>
+	<name>muneccimboku</name>
+	<description>muneccimboku.com</description>
 	<url/>
 	<licenses>
 		<license/>
 	</licenses>
 	<developers>
-		<developer/>
+		<developer>
+			<name>Muhammed Duzgun</name>
+			<email>muhammedduzgun00@gmail.com</email>
+			<url>www.muhammedduzgun.com</url>
+		</developer>
 	</developers>
 	<scm>
 		<connection/>
