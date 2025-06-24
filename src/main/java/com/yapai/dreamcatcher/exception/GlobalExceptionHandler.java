@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
-    public ResponseEntity<String> handleAuthenticationException(AuthenticationCredentialsNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Giriş Yapmalısınız");
+    public ResponseEntity<ErrorResponse> handleAuthenticationException
+            (AuthenticationCredentialsNotFoundException exception) {
+        ErrorResponse response = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(),
+                exception.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
+    //todo : add different endpoints for different exceptions
 }
