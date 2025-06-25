@@ -5,6 +5,7 @@ import com.yapai.dreamcatcher.dto.CreateCommentRequest;
 import com.yapai.dreamcatcher.entity.Comment;
 import com.yapai.dreamcatcher.entity.Dream;
 import com.yapai.dreamcatcher.entity.User;
+import com.yapai.dreamcatcher.exception.ResourceNotFoundException;
 import com.yapai.dreamcatcher.mapper.CommentMapper;
 import com.yapai.dreamcatcher.repository.ICommentRepository;
 import com.yapai.dreamcatcher.repository.IDreamRepository;
@@ -45,11 +46,11 @@ public class CommentService implements ICommentService {
         OAuth2User oauth2User = token.getPrincipal();
         String email = oauth2User.getAttribute("email");
         User user = userRepository.findByEmail(email)
-                .orElseThrow(()-> new RuntimeException("User not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("user not found"));
 
         //Dream
         Dream dream = dreamRepository.findById(createCommentRequest.getDreamId())
-                .orElseThrow(()-> new RuntimeException("Dream not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("dream not found"));
 
         //Comment
         Comment comment = new Comment();
@@ -73,10 +74,10 @@ public class CommentService implements ICommentService {
         OAuth2User oauth2User = token.getPrincipal();
         String email = oauth2User.getAttribute("email");
         User user = userRepository.findByEmail(email)
-                .orElseThrow(()-> new RuntimeException("User not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("user not found"));
 
         Comment commentToDelete = commentRepository.findById(commentId)
-                .orElseThrow(()-> new RuntimeException("Comment not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("comment not found"));
 
         if (commentToDelete.getUser().getId().equals(user.getId())) {
             commentRepository.delete(commentToDelete);
@@ -86,7 +87,7 @@ public class CommentService implements ICommentService {
     @Override
     public List<CommentDto> getAllCommentsByDreamId(Long dreamId) {
         Dream dream = dreamRepository.findById(dreamId)
-                .orElseThrow(()-> new RuntimeException("Dream not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("dream not found"));
         List<Comment> comments = commentRepository.findByDream(dream);
         List<CommentDto> commentDtos = new ArrayList<>();
         if (!comments.isEmpty()) {

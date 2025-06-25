@@ -17,5 +17,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
-    //todo : add different endpoints for different exceptions
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException
+            (ResourceNotFoundException exception) {
+        ErrorResponse response = new ErrorResponse(HttpStatus.NOT_FOUND.value(),
+                exception.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }

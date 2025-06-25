@@ -4,6 +4,7 @@ import com.yapai.dreamcatcher.dto.CreateDreamRequest;
 import com.yapai.dreamcatcher.dto.DreamDto;
 import com.yapai.dreamcatcher.entity.Dream;
 import com.yapai.dreamcatcher.entity.User;
+import com.yapai.dreamcatcher.exception.ResourceNotFoundException;
 import com.yapai.dreamcatcher.mapper.DreamMapper;
 import com.yapai.dreamcatcher.repository.IDreamRepository;
 import com.yapai.dreamcatcher.repository.IUserRepository;
@@ -40,7 +41,7 @@ public class DreamService implements IDreamService {
         OAuth2User oAuth2User = token.getPrincipal();
         String email = oAuth2User.getAttribute("email");
         User user = userRepository.findByEmail(email)
-                        .orElseThrow(()-> new RuntimeException("User not found"));
+                        .orElseThrow(()-> new ResourceNotFoundException("user not found"));
 
         dream.setDream(createDreamRequest.getDream());
         dream.setDreamInterpretation(createDreamRequest.getDreamInterpretation());
@@ -56,13 +57,13 @@ public class DreamService implements IDreamService {
         }
 
         Dream dream = dreamRepository.findById(dreamId)
-                .orElseThrow(()-> new RuntimeException("Dream not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("dream not found"));
 
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         OAuth2User oAuth2User = token.getPrincipal();
         String email = oAuth2User.getAttribute("email");
         User user = userRepository.findByEmail(email)
-                .orElseThrow(()-> new RuntimeException("User not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("user not found"));
 
         if (dream.getUser().getId().equals(user.getId())) {
             dreamRepository.deleteById(dreamId);
@@ -89,7 +90,7 @@ public class DreamService implements IDreamService {
         OAuth2User oAuth2User = token.getPrincipal();
         String email = oAuth2User.getAttribute("email");
         User user = userRepository.findByEmail(email)
-                .orElseThrow(()-> new RuntimeException("User not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("email not found"));
 
         List<Dream> dreams = dreamRepository.findByUser(user);
         List<DreamDto> dreamDtos = new ArrayList<>();
