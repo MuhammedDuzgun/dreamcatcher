@@ -1,13 +1,12 @@
-package com.yapai.dreamcatcher.service.ai.impl;
+package com.yapai.dreamcatcher.service.ai;
 
 import com.yapai.dreamcatcher.model.DreamInterpretation;
-import com.yapai.dreamcatcher.service.ai.IDreamServiceAI;
 import com.yapai.dreamcatcher.utils.AppConstants;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DreamServiceAI implements IDreamServiceAI {
+public class DreamServiceAI {
 
     private final ChatClient chatClient;
 
@@ -17,7 +16,6 @@ public class DreamServiceAI implements IDreamServiceAI {
                 .build();
     }
 
-    @Override
     public DreamInterpretation getDreamInterpretation(String dream) {
         return chatClient.prompt()
                 .user(user -> user.text(dream + "Rüyası için tabir yapar mısın ?"))

@@ -1,6 +1,6 @@
 package com.yapai.dreamcatcher.config;
 
-import com.yapai.dreamcatcher.service.IUserService;
+import com.yapai.dreamcatcher.service.crud.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
@@ -18,9 +18,9 @@ import java.io.IOException;
 @Configuration
 public class SecurityConfig {
 
-    private final IUserService userService;
+    private final UserService userService;
 
-    public SecurityConfig(IUserService userService) {
+    public SecurityConfig(UserService userService) {
         this.userService = userService;
     }
 

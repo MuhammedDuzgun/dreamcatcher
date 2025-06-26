@@ -4,9 +4,9 @@ import com.yapai.dreamcatcher.dto.CommentDto;
 import com.yapai.dreamcatcher.dto.CreateDreamRequest;
 import com.yapai.dreamcatcher.dto.DreamDto;
 import com.yapai.dreamcatcher.model.DreamInterpretation;
-import com.yapai.dreamcatcher.service.ICommentService;
-import com.yapai.dreamcatcher.service.IDreamService;
-import com.yapai.dreamcatcher.service.ai.IDreamServiceAI;
+import com.yapai.dreamcatcher.service.ai.DreamServiceAI;
+import com.yapai.dreamcatcher.service.crud.CommentService;
+import com.yapai.dreamcatcher.service.crud.DreamService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +17,15 @@ import java.util.List;
 @RequestMapping("/api/dream")
 public class DreamController {
 
-    private final IDreamServiceAI dreamServiceAI;
-    private final IDreamService dreamService;
-    private final ICommentService commentService;
+    private final DreamServiceAI dreamServiceAI;
+    private final DreamService dreamService;
+    private final CommentService commentService;
 
-    public DreamController(IDreamServiceAI dreamService,
-                           IDreamService dreamService1,
-                           ICommentService commentService) {
-        this.dreamServiceAI = dreamService;
-        this.dreamService = dreamService1;
+    public DreamController(DreamServiceAI dreamServiceAI,
+                           DreamService dreamService,
+                           CommentService commentService) {
+        this.dreamServiceAI = dreamServiceAI;
+        this.dreamService = dreamService;
         this.commentService = commentService;
     }
 
@@ -58,5 +58,4 @@ public class DreamController {
         List<CommentDto> commentDtos = commentService.getAllCommentsByDreamId(dreamId);
         return ResponseEntity.ok(commentDtos);
     }
-
 }

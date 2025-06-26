@@ -2,8 +2,8 @@ package com.yapai.dreamcatcher.controller;
 
 import com.yapai.dreamcatcher.dto.DreamDto;
 import com.yapai.dreamcatcher.dto.UserDto;
-import com.yapai.dreamcatcher.service.IDreamService;
-import com.yapai.dreamcatcher.service.IUserService;
+import com.yapai.dreamcatcher.service.crud.DreamService;
+import com.yapai.dreamcatcher.service.crud.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +16,10 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private final IUserService userService;
-    private final IDreamService dreamService;
+    private final UserService userService;
+    private final DreamService dreamService;
 
-    public UserController(IUserService userService, IDreamService dreamService) {
+    public UserController(UserService userService, DreamService dreamService) {
         this.userService = userService;
         this.dreamService = dreamService;
     }
@@ -35,5 +35,4 @@ public class UserController {
         List<DreamDto> dreamDtos = dreamService.getAllDreamsOfUser(authentication);
         return ResponseEntity.ok(dreamDtos);
     }
-
 }

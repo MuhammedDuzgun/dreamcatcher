@@ -1,4 +1,4 @@
-package com.yapai.dreamcatcher.service.impl;
+package com.yapai.dreamcatcher.service.crud;
 
 import com.yapai.dreamcatcher.dto.CreateDreamRequest;
 import com.yapai.dreamcatcher.dto.DreamDto;
@@ -8,7 +8,6 @@ import com.yapai.dreamcatcher.exception.ResourceNotFoundException;
 import com.yapai.dreamcatcher.mapper.DreamMapper;
 import com.yapai.dreamcatcher.repository.IDreamRepository;
 import com.yapai.dreamcatcher.repository.IUserRepository;
-import com.yapai.dreamcatcher.service.IDreamService;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DreamService implements IDreamService {
+public class DreamService {
 
     private final IDreamRepository dreamRepository;
     private final IUserRepository userRepository;
@@ -29,7 +28,6 @@ public class DreamService implements IDreamService {
         this.userRepository = userRepository;
     }
 
-    @Override
     public DreamDto addDream(Authentication authentication, CreateDreamRequest createDreamRequest) {
         if (authentication == null) {
             throw new AuthenticationCredentialsNotFoundException("User not authenticated");
@@ -50,7 +48,6 @@ public class DreamService implements IDreamService {
         return DreamMapper.mapToDreamDto(savedDream);
     }
 
-    @Override
     public void deleteDream(Authentication authentication, Long dreamId) {
         if (authentication == null) {
             throw new AuthenticationCredentialsNotFoundException("User not authenticated");
@@ -70,7 +67,6 @@ public class DreamService implements IDreamService {
         }
     }
 
-    @Override
     public List<DreamDto> getAllDreams() {
         List<Dream> dreams = dreamRepository.findAll();
         List<DreamDto> dreamDtos = new ArrayList<>();
@@ -80,7 +76,6 @@ public class DreamService implements IDreamService {
         return dreamDtos;
     }
 
-    @Override
     public List<DreamDto> getAllDreamsOfUser(Authentication authentication) {
         if (authentication == null) {
             throw new AuthenticationCredentialsNotFoundException("User not authenticated");

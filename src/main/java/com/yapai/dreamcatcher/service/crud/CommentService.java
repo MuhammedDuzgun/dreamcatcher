@@ -1,4 +1,4 @@
-package com.yapai.dreamcatcher.service.impl;
+package com.yapai.dreamcatcher.service.crud;
 
 import com.yapai.dreamcatcher.dto.CommentDto;
 import com.yapai.dreamcatcher.dto.CreateCommentRequest;
@@ -10,7 +10,6 @@ import com.yapai.dreamcatcher.mapper.CommentMapper;
 import com.yapai.dreamcatcher.repository.ICommentRepository;
 import com.yapai.dreamcatcher.repository.IDreamRepository;
 import com.yapai.dreamcatcher.repository.IUserRepository;
-import com.yapai.dreamcatcher.service.ICommentService;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CommentService implements ICommentService {
+public class CommentService {
 
     private final IUserRepository userRepository;
     private final IDreamRepository dreamRepository;
@@ -35,7 +34,6 @@ public class CommentService implements ICommentService {
         this.commentRepository = commentRepository;
     }
 
-    @Override
     public CommentDto addComment(Authentication authentication, CreateCommentRequest createCommentRequest) {
         if (authentication == null) {
             throw new AuthenticationCredentialsNotFoundException("User not authenticated");
@@ -63,7 +61,6 @@ public class CommentService implements ICommentService {
         return CommentMapper.mapToCommentDto(savedComment);
     }
 
-    @Override
     public void deleteComment(Authentication authentication, Long commentId) {
         if (authentication == null) {
             throw new AuthenticationCredentialsNotFoundException("User not authenticated");
@@ -84,7 +81,6 @@ public class CommentService implements ICommentService {
         }
     }
 
-    @Override
     public List<CommentDto> getAllCommentsByDreamId(Long dreamId) {
         Dream dream = dreamRepository.findById(dreamId)
                 .orElseThrow(()-> new ResourceNotFoundException("dream not found"));
@@ -95,5 +91,4 @@ public class CommentService implements ICommentService {
         }
         return commentDtos;
     }
-
 }

@@ -2,7 +2,7 @@ package com.yapai.dreamcatcher.controller;
 
 import com.yapai.dreamcatcher.dto.CommentDto;
 import com.yapai.dreamcatcher.dto.CreateCommentRequest;
-import com.yapai.dreamcatcher.service.ICommentService;
+import com.yapai.dreamcatcher.service.crud.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/comment")
 public class CommentController {
 
-    private final ICommentService commentService;
+    private final CommentService commentService;
 
-    public CommentController(ICommentService commentService) {
+    public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
 
@@ -30,5 +30,4 @@ public class CommentController {
         commentService.deleteComment(authentication, commentId);
         return ResponseEntity.ok("Comment deleted");
     }
-
 }
