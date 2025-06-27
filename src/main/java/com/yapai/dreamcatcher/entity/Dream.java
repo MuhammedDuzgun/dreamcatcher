@@ -1,7 +1,9 @@
 package com.yapai.dreamcatcher.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -24,6 +26,9 @@ public class Dream {
 
     @OneToMany(mappedBy = "dream", orphanRemoval = true)
     private List<Comment> comments;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     public Dream() {
     }
@@ -66,6 +71,10 @@ public class Dream {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     @Override

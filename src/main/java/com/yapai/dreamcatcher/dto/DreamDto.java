@@ -1,5 +1,6 @@
 package com.yapai.dreamcatcher.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class DreamDto {
@@ -9,6 +10,7 @@ public class DreamDto {
     private String dreamInterpretation;
     private Long userId;
     private List<CommentDto> comments;
+    private LocalDateTime createdAt;
 
     public DreamDto() {
     }
@@ -17,12 +19,13 @@ public class DreamDto {
                     String dream,
                     String dreamInterpretation,
                     Long userId,
-                    List<CommentDto> comments) {
+                    List<CommentDto> comments, LocalDateTime createdAt) {
         this.id = id;
         this.dream = dream;
         this.dreamInterpretation = dreamInterpretation;
         this.userId = userId;
         this.comments = comments;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -63,6 +66,14 @@ public class DreamDto {
 
     public void setComments(List<CommentDto> comments) {
         this.comments = comments;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
