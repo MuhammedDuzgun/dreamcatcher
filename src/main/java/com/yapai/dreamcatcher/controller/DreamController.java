@@ -31,8 +31,10 @@ public class DreamController {
     }
 
     @GetMapping
-    public DreamInterpretation getDreamInterpretation(@RequestBody GetDreamInterpretationRequest request) {
-        return dreamServiceAI.getDreamInterpretation(request.dream());
+    public ResponseEntity<DreamInterpretation> getDreamInterpretation
+            (@RequestBody GetDreamInterpretationRequest request) {
+        DreamInterpretation dreamInterpretation = dreamServiceAI.getDreamInterpretation(request.dream());
+        return ResponseEntity.ok(dreamInterpretation);
     }
 
     @PostMapping("/add-dream")
