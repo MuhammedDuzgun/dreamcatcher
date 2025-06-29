@@ -1,7 +1,7 @@
 package com.yapai.dreamcatcher.service.crud;
 
 import com.yapai.dreamcatcher.dto.CommentDto;
-import com.yapai.dreamcatcher.dto.CreateCommentRequest;
+import com.yapai.dreamcatcher.request.CreateCommentRequest;
 import com.yapai.dreamcatcher.entity.Comment;
 import com.yapai.dreamcatcher.entity.Dream;
 import com.yapai.dreamcatcher.entity.User;
@@ -47,12 +47,12 @@ public class CommentService {
                 .orElseThrow(()-> new ResourceNotFoundException("user not found"));
 
         //Dream
-        Dream dream = dreamRepository.findById(createCommentRequest.getDreamId())
+        Dream dream = dreamRepository.findById(createCommentRequest.dreamId())
                 .orElseThrow(()-> new ResourceNotFoundException("dream not found"));
 
         //Comment
         Comment comment = new Comment();
-        comment.setComment(createCommentRequest.getComment());
+        comment.setComment(createCommentRequest.comment());
         comment.setDream(dream);
         comment.setUser(user);
 

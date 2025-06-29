@@ -1,6 +1,6 @@
 package com.yapai.dreamcatcher.service.crud;
 
-import com.yapai.dreamcatcher.dto.CreateDreamRequest;
+import com.yapai.dreamcatcher.request.CreateDreamRequest;
 import com.yapai.dreamcatcher.dto.DreamDto;
 import com.yapai.dreamcatcher.entity.Dream;
 import com.yapai.dreamcatcher.entity.User;
@@ -41,8 +41,8 @@ public class DreamService {
         User user = userRepository.findByEmail(email)
                         .orElseThrow(()-> new ResourceNotFoundException("user not found"));
 
-        dream.setDream(createDreamRequest.getDream());
-        dream.setDreamInterpretation(createDreamRequest.getDreamInterpretation());
+        dream.setDream(createDreamRequest.dream());
+        dream.setDreamInterpretation(createDreamRequest.dreamInterpretation());
         dream.setUser(user);
         Dream savedDream = dreamRepository.save(dream);
         return DreamMapper.mapToDreamDto(savedDream);

@@ -1,9 +1,9 @@
 package com.yapai.dreamcatcher.controller;
 
 import com.yapai.dreamcatcher.dto.CommentDto;
-import com.yapai.dreamcatcher.dto.CreateDreamRequest;
+import com.yapai.dreamcatcher.request.CreateDreamRequest;
 import com.yapai.dreamcatcher.dto.DreamDto;
-import com.yapai.dreamcatcher.dto.GetDreamInterpretationRequest;
+import com.yapai.dreamcatcher.request.GetDreamInterpretationRequest;
 import com.yapai.dreamcatcher.model.DreamInterpretation;
 import com.yapai.dreamcatcher.service.ai.DreamServiceAI;
 import com.yapai.dreamcatcher.service.crud.CommentService;

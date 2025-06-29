@@ -1,7 +1,7 @@
 package com.yapai.dreamcatcher.controller;
 
 import com.yapai.dreamcatcher.dto.CommentDto;
-import com.yapai.dreamcatcher.dto.CreateCommentRequest;
+import com.yapai.dreamcatcher.request.CreateCommentRequest;
 import com.yapai.dreamcatcher.service.crud.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

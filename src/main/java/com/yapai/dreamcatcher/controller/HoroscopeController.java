@@ -1,6 +1,6 @@
 package com.yapai.dreamcatcher.controller;
 
-import com.yapai.dreamcatcher.dto.GetHoroscopeInterpretationRequest;
+import com.yapai.dreamcatcher.request.GetHoroscopeInterpretationRequest;
 import com.yapai.dreamcatcher.model.HoroscopeInterpretation;
 import com.yapai.dreamcatcher.service.ai.HoroscopeServiceAI;
 import org.springframework.http.ResponseEntity;
