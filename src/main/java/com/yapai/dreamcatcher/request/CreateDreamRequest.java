@@ -1,4 +1,4 @@
-package com.yapai.dreamcatcher.dto;
+package com.yapai.dreamcatcher.request;
 
 public class CreateDreamRequest {
 
