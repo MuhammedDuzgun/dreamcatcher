@@ -3,8 +3,8 @@ package com.yapai.dreamcatcher.controller;
 import com.yapai.dreamcatcher.dto.CommentDto;
 import com.yapai.dreamcatcher.request.CreateDreamRequest;
 import com.yapai.dreamcatcher.dto.DreamDto;
-import com.yapai.dreamcatcher.request.GetDreamInterpretationRequest;
 import com.yapai.dreamcatcher.model.DreamInterpretation;
+import com.yapai.dreamcatcher.request.GetDreamInterpretationRequest;
 import com.yapai.dreamcatcher.service.ai.DreamServiceAI;
 import com.yapai.dreamcatcher.service.crud.CommentService;
 import com.yapai.dreamcatcher.service.crud.DreamService;
@@ -30,7 +30,7 @@ public class DreamController {
         this.commentService = commentService;
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<DreamInterpretation> getDreamInterpretation
             (@RequestBody GetDreamInterpretationRequest request) {
         DreamInterpretation dreamInterpretation = dreamServiceAI.getDreamInterpretation(request.dream());
