@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream Catcher</title>
+    <meta name="description" content="Dream Catcher - Rüyalarınızı yorumlayın ve paylaşın">
+    <meta name="keywords" content="rüya, yorum, dream catcher, rüya yorumu">
+    <title>Dream Catcher - Rüya Yorumlama Platformu</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
 </head>
 <body>
 
@@ -12,27 +15,34 @@
 <div class="background"></div>
 
 <!-- Navbar -->
-<div class="navbar">
-    <button id="homeButton">Ana Sayfa</button>
-    <button id="dreamWorldButton">Rüyalar Alemi</button>
-    <button id="profileButton">Profilim</button>
-    <button id="loginButton">Giriş Yap</button>
-</div>
+<nav class="navbar">
+    <button id="homeButton" title="Ana Sayfa">🏠 Ana Sayfa</button>
+    <button id="dreamWorldButton" title="Rüyalar Alemi">🌙 Rüyalar Alemi</button>
+    <button id="profileButton" title="Profilim">👤 Profilim</button>
+    <button id="loginButton" title="Giriş Yap" style="display: none;">🔐 Giriş Yap</button>
+</nav>
 
-<!-- İçerik Bölgesi -->
-<div class="content">
+<!-- Ana İçerik Bölgesi -->
+<main class="content">
     <!-- Dinamik içerik buraya yüklenecek -->
-</div>
+</main>
 
 <!-- Yorum Girişi için Modal -->
 <div id="commentModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <h2>Yorum Yap</h2>
-        <textarea id="commentInput" placeholder="Yorumunuzu buraya yazın..." maxlength="300"></textarea><br>
-        <button id="submitCommentButton">Yorumu Gönder</button>
+        <span class="close" id="closeModal" title="Kapat">&times;</span>
+        <h2>💭 Yorum Yap</h2>
+        <textarea id="commentInput" placeholder="Yorumunuzu buraya yazın... (Maks. 300 karakter)" maxlength="300"></textarea>
+        <div style="margin-top: 15px;">
+            <button id="submitCommentButton">📤 Yorumu Gönder</button>
+        </div>
     </div>
 </div>
+
+<!-- Footer -->
+<footer style="text-align: center; padding: 20px; color: rgba(255,255,255,0.8); font-size: 0.9rem;">
+    <p>&copy; 2024 Dream Catcher. Tüm hakları saklıdır.</p>
+</footer>
 
 <script src="scripts.js"></script>
 </body>
